@@ -55,7 +55,7 @@ public final class SimplexLinha {
         SimplexColuna [] colunasMultiplicadas = new SimplexColuna[colunas.length];
 
         for(int i = 0; i < colunasMultiplicadas.length; i++){
-            colunasMultiplicadas[i] =  colunas[i].multiplicar(coluna.inverterSinal());
+            colunasMultiplicadas[i] =  colunas[i].multiplicar(coluna);
         }
 
         return new SimplexLinha(colunasMultiplicadas, indice);
@@ -69,5 +69,19 @@ public final class SimplexLinha {
         }
 
         return new SimplexLinha(colunasSomadas, indice);
+    }
+
+    public SimplexLinha dividir(SimplexColuna coluna) {
+        SimplexColuna [] colunasMultiplicadas = new SimplexColuna[colunas.length];
+
+        for(int i = 0; i < colunasMultiplicadas.length; i++){
+            colunasMultiplicadas[i] =  colunas[i].dividir(coluna);
+        }
+
+        return new SimplexLinha(colunasMultiplicadas, indice);
+    }
+
+    public int totalColunas() {
+        return colunas.length;
     }
 }

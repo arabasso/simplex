@@ -1,5 +1,6 @@
 package sk.host.arabasso;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -14,6 +15,10 @@ public class SimplexMatriz {
         for(int i = 0; i < this.linhas.length; i++){
             this.linhas[i] = new SimplexLinha(matriz[i], i);
         }
+    }
+
+    public int totalColunas() {
+        return linhas[0].totalColunas();
     }
 
     public SimplexLinha out() {
@@ -33,27 +38,6 @@ public class SimplexMatriz {
         }
 
         return linhaPivo;
-//        double menorValorPositivo = Double.MAX_VALUE;
-//        int linha = 0;
-//
-//        int totalColunas = matriz[0].length;
-//
-//        int coluna = in();
-//        int colunab = totalColunas - 1;
-//
-//        for(int i = 0; i < matriz.length; i++){
-//            double valorPivo = matriz[i][coluna];
-//            double valorb = matriz[i][colunab];
-//
-//            double valor = valorb / valorPivo;
-//
-//            if (valor >= 0 && valor < menorValorPositivo){
-//                menorValorPositivo = valor;
-//                linha = i;
-//            }
-//        }
-//
-//        return linha;
     }
 
     public SimplexColuna[] in() {
@@ -68,41 +52,49 @@ public class SimplexMatriz {
         return colunas;
     }
 
-//    public int in() {
-//        double menorValor = Double.MAX_VALUE;
-//        int coluna = 0;
-//
-//        for(int i = 0; i < matriz.length; i++){
-//            if (matriz[0][i] < menorValor){
-//                menorValor = matriz[0][i];
-//                coluna = i;
-//            }
-//        }
-//
-//        return coluna;
-//    }
-//
-//    public int out() {
-//        double menorValorPositivo = Double.MAX_VALUE;
-//        int linha = 0;
-//
-//        int totalColunas = matriz[0].length;
-//
-//        int coluna = in();
-//        int colunab = totalColunas - 1;
-//
-//        for(int i = 0; i < matriz.length; i++){
-//            double valorPivo = matriz[i][coluna];
-//            double valorb = matriz[i][colunab];
-//
-//            double valor = valorb / valorPivo;
-//
-//            if (valor >= 0 && valor < menorValorPositivo){
-//                menorValorPositivo = valor;
-//                linha = i;
-//            }
-//        }
-//
-//        return linha;
-//    }
+    public SimplexColuna[] variaveisBasicas() {
+        ArrayList<SimplexColuna> colunas = new ArrayList<>();
+
+        SimplexLinha linhaBasica = null;
+
+        for(int i = 0; i < totalColunas(); i++){
+            SimplexColuna variavelBasica = new SimplexColuna(0.0, i);
+
+            for (SimplexLinha linha : linhas) {
+                SimplexColuna coluna = linha.colunas[i];
+
+                if (coluna.valorProximoDe1()) {
+                    linhaBasica = linha;
+                }
+
+                variavelBasica = variavelBasica.somar(coluna.abs());
+            }
+
+            if (variavelBasica.valorProximoDe1()){
+                colunas.add(new SimplexColuna(linhaBasica.valorTotal(), variavelBasica.indice));
+            }
+        }
+
+        return colunas.toArray(new SimplexColuna[0]);
+    }
+
+    public SimplexColuna[] variaveisNaoBasicas() {
+        ArrayList<SimplexColuna> colunas = new ArrayList<>();
+
+        for(int i = 0; i < totalColunas(); i++){
+            SimplexColuna variavelBasica = new SimplexColuna(0.0, i);
+
+            for (SimplexLinha linha : linhas) {
+                SimplexColuna coluna = linha.colunas[i];
+
+                variavelBasica = variavelBasica.somar(coluna.abs());
+            }
+
+            if (!variavelBasica.valorProximoDe1()){
+                colunas.add(new SimplexColuna(0.0, variavelBasica.indice));
+            }
+        }
+
+        return colunas.toArray(new SimplexColuna[0]);
+    }
 }
