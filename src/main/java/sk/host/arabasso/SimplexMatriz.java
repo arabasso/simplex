@@ -16,7 +16,7 @@ public class SimplexMatriz {
         }
     }
 
-    public SimplexLinha linhaPivo() {
+    public SimplexLinha out() {
         SimplexColuna pivo = linhas[0].pivo();
         SimplexLinha linhaPivo = null;
 
@@ -56,7 +56,7 @@ public class SimplexMatriz {
 //        return linha;
     }
 
-    public SimplexColuna[] colunaPivo() {
+    public SimplexColuna[] in() {
         SimplexColuna pivo = linhas[0].pivo();
 
         SimplexColuna [] colunas = new SimplexColuna[linhas.length];

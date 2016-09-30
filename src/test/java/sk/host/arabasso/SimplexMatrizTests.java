@@ -24,7 +24,7 @@ public class SimplexMatrizTests {
     public void linhaPivoDeveSerSegunda(){
         SimplexMatriz simplexMatriz = new SimplexMatriz(matriz);
 
-        SimplexLinha linhaPivo = simplexMatriz.linhaPivo();
+        SimplexLinha linhaPivo = simplexMatriz.out();
 
         assertThat(linhaPivo.indice, is(equalTo(1)));
     }
@@ -33,7 +33,7 @@ public class SimplexMatrizTests {
     public void colunasPivoNaoDevemSerVazio(){
         SimplexMatriz simplexMatriz = new SimplexMatriz(matriz);
 
-        SimplexColuna [] colunas = simplexMatriz.colunaPivo();
+        SimplexColuna [] colunas = simplexMatriz.in();
 
         assertThat(colunas, not(emptyArray()));
     }
@@ -42,10 +42,10 @@ public class SimplexMatrizTests {
     public void colunasPivoDevemSerQuartaColuna(){
         SimplexMatriz simplexMatriz = new SimplexMatriz(matriz);
 
-        SimplexColuna [] colunas = simplexMatriz.colunaPivo();
+        SimplexColuna [] colunas = simplexMatriz.in();
 
-        for(int i = 0; i < colunas.length; i++){
-            assertThat(colunas[i].indice, is(equalTo(3)));
+        for (SimplexColuna c : colunas) {
+            assertThat(c.indice, is(equalTo(3)));
         }
     }
 }

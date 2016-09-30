@@ -19,4 +19,8 @@ public final class SimplexColuna {
     public SimplexColuna multiplicar(SimplexColuna c2) {
         return new SimplexColuna(valor * c2.valor, indice);
     }
+
+    public SimplexColuna inverterSinal() {
+        return new SimplexColuna(-valor, indice);
+    }
 }
