@@ -55,6 +55,10 @@ public class Simplex {
         return new SimplexSolucao(matriz);
     }
 
+    private SimplexLinha novaLinha(SimplexColuna coluna, SimplexLinha novaLinhaPivo, SimplexLinha linha){
+        return linha.somar(novaLinhaPivo.multiplicar(coluna));
+    }
+
     public Simplex proximoAlgoritmo(){
         SimplexLinha [] novasLinhas = new SimplexLinha[matriz.linhas.length];
 
@@ -63,22 +67,16 @@ public class Simplex {
 
         SimplexLinha novaLinhaPivo = linhaPivo.dividir(pivo);
 
-        SimplexColuna[] in = matriz.in();
+        SimplexColuna[] colunaPivo = matriz.in();
 
-        for (int i = 0; i < in.length; i++) {
+        for (int i = 0; i < colunaPivo.length; i++) {
             if (linhaPivo.indice == i){
                 novasLinhas[i] = novaLinhaPivo;
 
                 continue;
             }
 
-            SimplexColuna coluna = in[i];
-
-            SimplexLinha linha = matriz.linhas[i];
-
-            SimplexLinha novaLinha = linha.somar(novaLinhaPivo.multiplicar(coluna));
-
-            novasLinhas[i] = novaLinha;
+            novasLinhas[i] = novaLinha(colunaPivo[i], novaLinhaPivo, matriz.linhas[i]);
         }
 
         Simplex s = new Simplex(novasLinhas);
