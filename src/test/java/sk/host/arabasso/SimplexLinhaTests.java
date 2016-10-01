@@ -70,20 +70,10 @@ public class SimplexLinhaTests {
     public void indicePivoDeveSerQuartoElemento(){
         SimplexLinha linha = new SimplexLinha(colunas, 0);
 
-        SimplexColuna pivo = linha.pivo();
+        SimplexColuna pivo = linha.colunaMenor();
 
         assertThat(pivo.indice,
                 is(equalTo(3)));
-    }
-
-    @Test
-    public void valorPivoDeveSerMenos3(){
-        SimplexLinha linha = new SimplexLinha(colunas, 0);
-
-        SimplexColuna pivo = linha.pivo();
-
-        assertThat(pivo.valor,
-                is(closeTo(PIVO, SimplexColuna.EPSILON)));
     }
 
     @Test
@@ -100,7 +90,7 @@ public class SimplexLinhaTests {
 
         double valor = colunas[VALOR_TOTAL_INDICE] / colunas[PIVO_INDICE];
 
-        SimplexColuna pivo = linha.pivo();
+        SimplexColuna pivo = new SimplexColuna(PIVO, PIVO_INDICE);
 
         assertThat(linha.valorTotalPeloPivo(pivo),
                 is(closeTo(valor, SimplexColuna.EPSILON)));
@@ -112,7 +102,7 @@ public class SimplexLinhaTests {
 
         double valor = colunas[VALOR_TOTAL_INDICE] / colunas[PIVO_INDICE];
 
-        SimplexColuna pivo = linha.pivo();
+        SimplexColuna pivo = linha.colunaMenor();
 
         assertThat(linha.valorTotalPeloIndicePivo(pivo),
                 is(closeTo(valor, SimplexColuna.EPSILON)));
@@ -156,5 +146,23 @@ public class SimplexLinhaTests {
             assertThat(novaLinha.colunas[i].valor,
                     is(closeTo(colunasSomadas[i], SimplexColuna.EPSILON)));
         }
+    }
+
+    @Test
+    public void todosValoresSaoPositivos(){
+        double [] colunas = new double [] {1.0, 0.0, 2.0, 50.0};
+
+        SimplexLinha linha = new SimplexLinha(colunas, 0);
+
+        assertThat(linha.todosValoresSaoPositivos(), is(true));
+    }
+
+    @Test
+    public void contemAlgumValorNegativo(){
+        double [] colunas = new double [] {-1.0, 0.0, 2.0, 50.0};
+
+        SimplexLinha linha = new SimplexLinha(colunas, 0);
+
+        assertThat(linha.todosValoresSaoPositivos(), is(false));
     }
 }

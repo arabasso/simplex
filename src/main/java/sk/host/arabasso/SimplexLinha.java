@@ -24,7 +24,7 @@ public final class SimplexLinha {
         this.indice = indice;
     }
 
-    public SimplexColuna pivo() {
+    public SimplexColuna colunaMenor() {
         double valor = Double.MAX_VALUE;
         SimplexColuna coluna = null;
 
@@ -83,5 +83,20 @@ public final class SimplexLinha {
 
     public int totalColunas() {
         return colunas.length;
+    }
+
+    public boolean todosValoresSaoPositivos() {
+        for (SimplexColuna c: colunas) {
+            if (!c.valorEhPositivo()){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "[" + indice + "] = " + Arrays.toString(colunas);
     }
 }

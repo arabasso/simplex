@@ -1,23 +1,29 @@
+apply plugin: 'application'
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'application'
 
-mainClassName = 'sk.host.arabasso.SimplexApplication'
-
+group = 'sk.host.arabasso'
 version = '1.0'
+description = 'Simplex implementation'
 
-jar {
-    manifest {
-        attributes 'Main-Class': 'sk.host.arabasso.SimplexApplication'
-    }
-}
+mainClassName = 'sk.host.arabasso.Simplex'
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testCompile('junit:junit:4.12')
-	testCompile('org.hamcrest:hamcrest-all:1.3')
+	testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '1.3'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
+jar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+	baseName = 'apriori'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8

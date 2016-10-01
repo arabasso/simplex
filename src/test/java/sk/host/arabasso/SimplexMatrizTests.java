@@ -1,5 +1,6 @@
 package sk.host.arabasso;
 
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,7 +21,6 @@ public class SimplexMatrizTests {
     };
 
     private SimplexColuna [] variaveisBasicas = new SimplexColuna[]{
-        new SimplexColuna(0.0, 0),
         new SimplexColuna(100.0, 4),
         new SimplexColuna(150.0, 5),
         new SimplexColuna(250.0, 6),
@@ -37,6 +37,22 @@ public class SimplexMatrizTests {
     @Before
     public void setUp(){
         simplexMatriz = new SimplexMatriz(matriz);
+    }
+
+    @Test
+    public void valorPivoDeveSer3(){
+        SimplexColuna pivo = simplexMatriz.pivo();
+
+        assertThat(pivo.valor,
+                Matchers.is(closeTo(3.0, SimplexColuna.EPSILON)));
+    }
+
+    @Test
+    public void indicePivoDeveSerQuartoElemento(){
+        SimplexColuna pivo = simplexMatriz.pivo();
+
+        assertThat(pivo.indice,
+                Matchers.is(Matchers.equalTo(3)));
     }
 
     @Test
@@ -66,10 +82,10 @@ public class SimplexMatrizTests {
     }
 
     @Test
-    public void variaveisBasicasIndicesDevemSerZXf1Xf2Xf3(){
+    public void variaveisBasicasIndicesDevemSerXf1Xf2Xf3(){
         SimplexColuna [] variaveis = simplexMatriz.variaveisBasicas();
 
-        for (int i = 0; i < variaveis.length; i++) {
+        for (int i = 0; i < variaveisBasicas.length; i++) {
             int indice = variaveisBasicas[i].indice;
             int indiceSolucao = variaveis[i].indice;
 
@@ -81,7 +97,7 @@ public class SimplexMatrizTests {
     public void variaveisBasicasValoresDevemSer0_100_150_250(){
         SimplexColuna [] variaveis = simplexMatriz.variaveisBasicas();
 
-        for (int i = 0; i < variaveis.length; i++) {
+        for (int i = 0; i < variaveisBasicas.length; i++) {
             double valor = variaveisBasicas[i].valor;
             double valorSolucao = variaveis[i].valor;
 
@@ -110,5 +126,12 @@ public class SimplexMatrizTests {
 
             assertThat(valorSolucao, is(closeTo(0.0, SimplexColuna.EPSILON)));
         }
+    }
+
+    @Test
+    public void valorZDeveSer0(){
+        SimplexColuna c = simplexMatriz.valorZ();
+
+        assertThat(c.valor, is(closeTo(0.0, SimplexColuna.EPSILON)));
     }
 }

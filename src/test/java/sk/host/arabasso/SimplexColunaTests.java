@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.is;
  */
 public class SimplexColunaTests {
     @Test
-    public void inverterSinalValor(){
+    public void inverterSinalValorDeveSerNegativo(){
         SimplexColuna c1 = new SimplexColuna(1.0, 0);
 
         SimplexColuna c2 = c1.inverterSinal();
@@ -21,7 +21,7 @@ public class SimplexColunaTests {
     }
 
     @Test
-    public void valorDeveSerPositivo(){
+    public void inverterSinalValorDeveSerPositivo(){
         SimplexColuna c1 = new SimplexColuna(-1.0, 0);
 
         SimplexColuna c2 = c1.abs();
@@ -110,5 +110,26 @@ public class SimplexColunaTests {
         SimplexColuna c3 = c1.multiplicar(c2);
 
         assertThat(c3.indice, is(equalTo(0)));
+    }
+
+    @Test
+    public void deveImprimirColunaValor(){
+        SimplexColuna c = new SimplexColuna(100.0, 2);
+
+        assertThat(c.toString(), is(equalTo("[2] = R$ 100,00")));
+    }
+
+    @Test
+    public void valorDeveSerPositivo(){
+        SimplexColuna c = new SimplexColuna(100.0, 2);
+
+        assertThat(c.valorEhPositivo(), is(true));
+    }
+
+    @Test
+    public void valorDeveSerNegativo(){
+        SimplexColuna c = new SimplexColuna(-100.0, 2);
+
+        assertThat(c.valorEhPositivo(), is(false));
     }
 }
