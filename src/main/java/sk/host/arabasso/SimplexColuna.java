@@ -48,4 +48,8 @@ public final class SimplexColuna {
     public boolean valorEhPositivo() {
         return valor >= 0.0;
     }
+
+    public String toString(String[] variaveis) {
+        return variaveis[indice] + " = " + NumberFormat.getCurrencyInstance().format(valor);
+    }
 }

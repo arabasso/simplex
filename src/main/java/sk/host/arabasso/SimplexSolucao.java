@@ -16,18 +16,21 @@ public class SimplexSolucao {
         this.valorZ = matriz.valorZ();
     }
 
-    public void imprimir() {
+    public void imprimir(String [] variaveis) {
+        System.out.println();
         System.out.println("Variaveis basicas");
         for (SimplexColuna c : variaveisBasicas) {
-            System.out.println(c);
+            System.out.println(c.toString(variaveis));
         }
 
+        System.out.println();
         System.out.println("Variaveis nao basicas");
         for (SimplexColuna c : variaveisNaoBasicas) {
-            System.out.println(c);
+            System.out.println(c.toString(variaveis));
         }
 
+        System.out.println();
         System.out.println("Valor Z");
-        System.out.println(valorZ);
+        System.out.println(valorZ.toString(variaveis));
     }
 }

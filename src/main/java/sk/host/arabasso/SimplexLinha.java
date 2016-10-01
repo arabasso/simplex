@@ -1,6 +1,9 @@
 package sk.host.arabasso;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
 /**
  * Created by arabasso on 29/09/2016.
@@ -19,6 +22,24 @@ public final class SimplexLinha {
 
         for(int i = 0; i < this.colunas.length; i++){
             this.colunas[i] = new SimplexColuna(colunas[i], i);
+        }
+
+        this.indice = indice;
+    }
+
+    public SimplexLinha(String colunas, int indice) {
+        Scanner scanner = new Scanner(colunas);
+
+        ArrayList<Double> lista = new ArrayList<>();
+
+        while (scanner.hasNext()) {
+            lista.add(scanner.nextDouble());
+        }
+
+        this.colunas = new SimplexColuna[lista.size()];
+
+        for(int i = 0; i < this.colunas.length; i++){
+            this.colunas[i] = new SimplexColuna(lista.get(i), i);
         }
 
         this.indice = indice;

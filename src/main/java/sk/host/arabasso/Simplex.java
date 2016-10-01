@@ -1,39 +1,54 @@
 package sk.host.arabasso;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
+
 /**
  * Created by arabasso on 30/09/2016.
  */
 public class Simplex {
-    private static double[][] matriz1 = new double[][]{
-            {1, -4, -3, -2, -1, 0, 0, 0, 0},
-            {0,  1,  1,  1,  1, 1, 0, 0, 120},
-            {0,  2,  1,  4, -1, 0, 1, 0, 260},
-            {0,  1,  2,  1,  1, 0, 0, 1, 180},
-    };
-
-    private static double[][] matriz2 = new double[][]{
-            {1, -2, -3, -1, 0, 0, 0, 0},
-            {0,  1,  1,  1, 1, 0, 0, 40},
-            {0,  2,  1, -1, 0, 1, 0, 20},
-            {0,  3,  2, -1, 0, 0, 1, 30},
-    };
-
-    private static double[][] matriz3 = new double[][]{
-            {1, -3, -6, -4, 0, 0, 0, 0, 0},
-            {0,  1,  1,  1, 1, 0, 0, 0, 88},
-            {0,  2,  3, -1, 0, 1, 0, 0, 220},
-            {0,  3, -1,  2, 0, 0, 1, 0, 180},
-            {0,  2,  1,  1, 0, 0, 0, 1, 120},
-    };
-
+    public String [] variaveis;
     public final SimplexMatriz matriz;
 
     public Simplex(double[][] matriz) {
-         this.matriz = new SimplexMatriz(matriz);
+        this.matriz = new SimplexMatriz(matriz);
     }
 
     public Simplex(SimplexLinha[] linhas) {
         this.matriz = new SimplexMatriz(linhas);
+    }
+
+    public Simplex(String arg) throws IOException {
+        try (Stream<String> stream = Files.lines(Paths.get(arg))) {
+            ArrayList<String> variaveis = new ArrayList<>();
+            ArrayList<SimplexLinha> linhas = new ArrayList<>();
+
+            AtomicInteger indice = new AtomicInteger();
+
+            stream.forEach(linha ->{
+                int i = indice.getAndIncrement();
+
+                if (i > 0){
+                    linhas.add(new SimplexLinha(linha, i - 1));
+                }
+
+                else{
+                    StringTokenizer st = new StringTokenizer(linha);
+
+                    while(st.hasMoreTokens()){
+                        variaveis.add(st.nextToken());
+                    }
+                }
+            });
+
+            this.variaveis = variaveis.toArray(new String[0]);
+            this.matriz = new SimplexMatriz(linhas.toArray(new SimplexLinha[0]));
+        }
     }
 
     public SimplexSolucao solucao() {
@@ -66,20 +81,34 @@ public class Simplex {
             novasLinhas[i] = novaLinha;
         }
 
-        return new Simplex(novasLinhas);
+        Simplex s = new Simplex(novasLinhas);
+
+        s.variaveis = this.variaveis;
+
+        return s;
     }
 
     public static void main(String [] args){
-        Simplex simplex = new Simplex(matriz3);
+        if (args.length != 1){
+            System.out.println("uso: java -jar simplex.jar arquivo");
 
-        SimplexSolucao solucao = simplex.solucao();
-
-        while(!solucao.otima){
-            simplex = simplex.proximoAlgoritmo();
-
-            solucao = simplex.solucao();
+            return;
         }
 
-        solucao.imprimir();
+        try {
+            Simplex simplex = new Simplex(args[0]);
+
+            SimplexSolucao solucao = simplex.solucao();
+
+            while(!solucao.otima){
+                simplex = simplex.proximoAlgoritmo();
+
+                solucao = simplex.solucao();
+            }
+
+            solucao.imprimir(simplex.variaveis);
+        } catch (IOException e) {
+            System.out.println("Aquivo inexistente: " + e.getMessage());
+        }
     }
 }

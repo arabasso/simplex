@@ -14,6 +14,7 @@ public class SimplexLinhaTests {
     private static final double PIVO = -3.0;
     private static final int PIVO_INDICE = 3;
     private static final int VALOR_TOTAL_INDICE = 7;
+    public static final String COLUNAS_TEXTO = "1\t-4\t-3\t-2\t-1\t0\t0\t0\t0";
 
     private double [] colunas = new double[]{
         1.0,      // 0
@@ -58,6 +59,43 @@ public class SimplexLinhaTests {
             0.0 * 2.0,      // 6
             200.0 * 2.0     // 7
     };
+
+    private double [] colunasTexto = new double[]{
+            1.0,      // 0
+            -4.0,     // 1
+            -3.0,     // 2
+            -2.0,     // 3
+            -1.0,     // 4
+            0.0,      // 5
+            0.0,      // 6
+            0.0,      // 7
+            0.0,      // 8
+    };
+
+    @Test
+    public void colunasComoStringDevemTer9Colunas(){
+        SimplexLinha linha = new SimplexLinha(COLUNAS_TEXTO, 0);
+
+        assertThat(linha.totalColunas(), is(equalTo(9)));
+    }
+
+    @Test
+    public void colunasComoStringDevemSer1Menos4Menos3Menos2Menos1_0_0_0_0(){
+        SimplexLinha linha = new SimplexLinha(COLUNAS_TEXTO, 0);
+
+        for (int i = 0; i < colunasTexto.length; i++) {
+            assertThat(linha.colunas[i].valor, is(closeTo(colunasTexto[i], SimplexColuna.EPSILON)));
+        }
+    }
+
+    @Test
+    public void colunasComoStringDevemSerTerIndicesSequencias(){
+        SimplexLinha linha = new SimplexLinha("1\t-4\t-3\t-2\t-1\t0\t0\t0\t0", 0);
+
+        for (int i = 0; i < colunasTexto.length; i++) {
+            assertThat(linha.colunas[i].indice, is(equalTo(i)));
+        }
+    }
 
     @Test
     public void totalColunasDeveSer8(){
