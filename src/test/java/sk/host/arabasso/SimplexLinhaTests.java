@@ -9,12 +9,13 @@ import static org.junit.Assert.assertThat;
 
 /**
  * Created by arabasso on 29/09/2016.
+ *
  */
 public class SimplexLinhaTests {
     private static final double PIVO = -3.0;
     private static final int PIVO_INDICE = 3;
     private static final int VALOR_TOTAL_INDICE = 7;
-    public static final String COLUNAS_TEXTO = "1\t-4\t-3\t-2\t-1\t0\t0\t0\t0";
+    private static final String COLUNAS_TEXTO = "1\t-4\t-3\t-2\t-1\t0\t0\t0\t0";
 
     private double [] colunas = new double[]{
         1.0,      // 0

@@ -2,12 +2,13 @@ package sk.host.arabasso;
 
 /**
  * Created by arabasso on 30/09/2016.
+ *
  */
 public class SimplexSolucao {
-    public final boolean otima;
-    public final SimplexColuna[] variaveisBasicas;
-    public final SimplexColuna[] variaveisNaoBasicas;
-    public final SimplexColuna valorZ;
+    final boolean otima;
+    final SimplexColuna[] variaveisBasicas;
+    final SimplexColuna[] variaveisNaoBasicas;
+    final SimplexColuna valorZ;
 
     public SimplexSolucao(SimplexMatriz matriz) {
         this.otima = matriz.linhas[0].todosValoresSaoPositivos();
@@ -16,7 +17,7 @@ public class SimplexSolucao {
         this.valorZ = matriz.valorZ();
     }
 
-    public void imprimir(String [] variaveis) {
+    void imprimir(String[] variaveis) {
         System.out.println();
         System.out.println("Variaveis basicas");
         for (SimplexColuna c : variaveisBasicas) {

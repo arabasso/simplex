@@ -11,6 +11,7 @@ import static org.junit.Assert.assertThat;
 
 /**
  * Created by arabasso on 29/09/2016.
+ *
  */
 public class SimplexMatrizTests {
     private double [][] matriz = new double[][]{

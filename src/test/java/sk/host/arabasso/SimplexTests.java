@@ -6,27 +6,30 @@ import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 /**
  * Created by araba on 01/10/2016.
+ *
  */
 public class SimplexTests {
-    double [][] matriz = new double[][]{
+    private double [][] matriz = new double[][]{
         {1, -4, -3, -2, -1, 0, 0, 0, 0},
         {0,  1,  1,  1,  1, 1, 0, 0, 120},
         {0,  2,  1,  4, -1, 0, 1, 0, 260},
         {0,  1,  2,  1,  1, 0, 0, 1, 180},
     };
 
-    SimplexColuna [] variaveisBasicas = new SimplexColuna[]{
+    private SimplexColuna [] variaveisBasicas = new SimplexColuna[]{
             new SimplexColuna(120.0, 1),
             new SimplexColuna(20.0, 6),
             new SimplexColuna(60.0, 7),
     };
 
-    SimplexColuna [] variaveisNaoBasicas = new SimplexColuna[]{
+    private SimplexColuna [] variaveisNaoBasicas = new SimplexColuna[]{
             new SimplexColuna(0.0, 2),
             new SimplexColuna(0.0, 3),
             new SimplexColuna(0.0, 4),
@@ -109,5 +112,10 @@ public class SimplexTests {
     @Test
     public void valorZDeveSer480(){
         assertThat(solucaoProximoAlgoritmo.valorZ.valor, is(closeTo(480.0, SimplexColuna.EPSILON)));
+    }
+
+    @Test
+    public void simplexSolucaoInicialNaoDeveRetornarNulo(){
+        assertThat(solucaoInicial, is(not(nullValue())));
     }
 }

@@ -9,6 +9,7 @@ import static org.hamcrest.Matchers.is;
 
 /**
  * Created by arabasso on 29/09/2016.
+ *
  */
 public class SimplexColunaTests {
     @Test
@@ -117,6 +118,17 @@ public class SimplexColunaTests {
         SimplexColuna c = new SimplexColuna(100.0, 2);
 
         assertThat(c.toString(), is(equalTo("[2] = R$ 100,00")));
+    }
+
+    @Test
+    public void deveImprimirColunaValorPelaVariavel(){
+        String [] variaveis = new String[]{
+                "X1", "X2", "X3"
+        };
+
+        SimplexColuna c = new SimplexColuna(100.0, 2);
+
+        assertThat(c.toString(variaveis), is(equalTo("X3 = R$ 100,00")));
     }
 
     @Test

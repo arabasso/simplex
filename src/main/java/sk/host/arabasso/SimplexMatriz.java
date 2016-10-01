@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 /**
  * Created by arabasso on 29/09/2016.
+ *
  */
 public class SimplexMatriz {
     SimplexLinha[] linhas;
@@ -17,7 +18,7 @@ public class SimplexMatriz {
         }
     }
 
-    public SimplexColuna pivo() {
+    SimplexColuna pivo() {
         SimplexColuna colunaMenor = linhas[0].colunaMenor();
 
         return out().colunas[colunaMenor.indice];
@@ -27,11 +28,11 @@ public class SimplexMatriz {
         this.linhas = Arrays.copyOf(linhas, linhas.length);
     }
 
-    public int totalColunas() {
+    int totalColunas() {
         return linhas[0].totalColunas();
     }
 
-    public SimplexLinha out() {
+    SimplexLinha out() {
         SimplexColuna colunaMenor = linhas[0].colunaMenor();
         SimplexLinha linhaPivo = null;
 
@@ -50,7 +51,7 @@ public class SimplexMatriz {
         return linhaPivo;
     }
 
-    public SimplexColuna[] in() {
+    SimplexColuna[] in() {
         SimplexColuna pivo = pivo();
 
         SimplexColuna [] colunas = new SimplexColuna[linhas.length];
@@ -62,7 +63,7 @@ public class SimplexMatriz {
         return colunas;
     }
 
-    public SimplexColuna[] variaveisBasicas() {
+    SimplexColuna[] variaveisBasicas() {
         ArrayList<SimplexColuna> colunas = new ArrayList<>();
 
         SimplexLinha linhaBasica = null;
@@ -81,6 +82,8 @@ public class SimplexMatriz {
             }
 
             if (variavelBasica.valorProximoDe1()){
+                assert linhaBasica != null;
+
                 colunas.add(new SimplexColuna(linhaBasica.valorTotal(), variavelBasica.indice));
             }
         }
@@ -88,7 +91,7 @@ public class SimplexMatriz {
         return colunas.toArray(new SimplexColuna[0]);
     }
 
-    public SimplexColuna[] variaveisNaoBasicas() {
+    SimplexColuna[] variaveisNaoBasicas() {
         ArrayList<SimplexColuna> colunas = new ArrayList<>();
 
         for(int i = 1; i < totalColunas() - 1; i++){
@@ -108,26 +111,9 @@ public class SimplexMatriz {
         return colunas.toArray(new SimplexColuna[0]);
     }
 
-    public SimplexColuna valorZ() {
+    SimplexColuna valorZ() {
         double valor = linhas[0].valorTotal();
 
         return new SimplexColuna(valor, totalColunas() - 1);
-    }
-
-    public void imprimir() {
-        for (SimplexLinha l : linhas) {
-            System.out.print("{");
-
-            int i = 1;
-            for (SimplexColuna c : l.colunas) {
-                System.out.printf("%8.2f", c.valor);
-
-                if (i++ < l.colunas.length) {
-                    System.out.print(",");
-                }
-            }
-
-            System.out.println("}");
-        }
     }
 }

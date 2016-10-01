@@ -3,14 +3,14 @@ package sk.host.arabasso;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.StringTokenizer;
 
 /**
  * Created by arabasso on 29/09/2016.
+ *
  */
 public final class SimplexLinha {
-    public final int indice;
-    public final SimplexColuna [] colunas;
+    final int indice;
+    final SimplexColuna [] colunas;
 
     public SimplexLinha(SimplexColuna[] colunas, int indice) {
         this.colunas = Arrays.copyOf(colunas, colunas.length);
@@ -45,7 +45,7 @@ public final class SimplexLinha {
         this.indice = indice;
     }
 
-    public SimplexColuna colunaMenor() {
+    SimplexColuna colunaMenor() {
         double valor = Double.MAX_VALUE;
         SimplexColuna coluna = null;
 
@@ -60,19 +60,19 @@ public final class SimplexLinha {
         return coluna;
     }
 
-    public double valorTotal() {
+    double valorTotal() {
         return colunas[colunas.length - 1].valor;
     }
 
-    public double valorTotalPeloPivo(SimplexColuna pivo) {
+    double valorTotalPeloPivo(SimplexColuna pivo) {
         return valorTotal() / pivo.valor;
     }
 
-    public double valorTotalPeloIndicePivo(SimplexColuna pivo) {
+    double valorTotalPeloIndicePivo(SimplexColuna pivo) {
         return valorTotal() / colunas[pivo.indice].valor;
     }
 
-    public SimplexLinha multiplicar(SimplexColuna coluna) {
+    SimplexLinha multiplicar(SimplexColuna coluna) {
         SimplexColuna [] colunasMultiplicadas = new SimplexColuna[colunas.length];
 
         for(int i = 0; i < colunasMultiplicadas.length; i++){
@@ -82,7 +82,7 @@ public final class SimplexLinha {
         return new SimplexLinha(colunasMultiplicadas, indice);
     }
 
-    public SimplexLinha somar(SimplexLinha linha) {
+    SimplexLinha somar(SimplexLinha linha) {
         SimplexColuna [] colunasSomadas = new SimplexColuna[colunas.length];
 
         for (int i = 0; i < colunasSomadas.length; i++){
@@ -92,28 +92,23 @@ public final class SimplexLinha {
         return new SimplexLinha(colunasSomadas, indice);
     }
 
-    public SimplexLinha dividir(SimplexColuna coluna) {
-        SimplexColuna [] colunasMultiplicadas = new SimplexColuna[colunas.length];
+    SimplexLinha dividir(SimplexColuna coluna) {
+        SimplexColuna [] novasColunas = Arrays
+                .stream(colunas)
+                .map(m -> m.dividir(coluna))
+                .toArray(SimplexColuna[]::new);
 
-        for(int i = 0; i < colunasMultiplicadas.length; i++){
-            colunasMultiplicadas[i] =  colunas[i].dividir(coluna);
-        }
-
-        return new SimplexLinha(colunasMultiplicadas, indice);
+        return new SimplexLinha(novasColunas, indice);
     }
 
-    public int totalColunas() {
+    int totalColunas() {
         return colunas.length;
     }
 
-    public boolean todosValoresSaoPositivos() {
-        for (SimplexColuna c: colunas) {
-            if (!c.valorEhPositivo()){
-                return false;
-            }
-        }
-
-        return true;
+    boolean todosValoresSaoPositivos() {
+        return Arrays
+                .stream(colunas)
+                .allMatch(SimplexColuna::valorEhPositivo);
     }
 
     @Override

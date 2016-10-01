@@ -10,10 +10,11 @@ import java.util.stream.Stream;
 
 /**
  * Created by arabasso on 30/09/2016.
+ *
  */
 public class Simplex {
-    public String [] variaveis;
-    public final SimplexMatriz matriz;
+    private String [] variaveis;
+    private final SimplexMatriz matriz;
 
     public Simplex(double[][] matriz) {
         this.matriz = new SimplexMatriz(matriz);
@@ -51,15 +52,17 @@ public class Simplex {
         }
     }
 
-    public SimplexSolucao solucao() {
+    SimplexSolucao solucao() {
         return new SimplexSolucao(matriz);
     }
 
-    private SimplexLinha novaLinha(SimplexColuna coluna, SimplexLinha novaLinhaPivo, SimplexLinha linha){
+    private SimplexLinha novaLinha(SimplexColuna coluna,
+                                   SimplexLinha novaLinhaPivo,
+                                   SimplexLinha linha){
         return linha.somar(novaLinhaPivo.multiplicar(coluna));
     }
 
-    public Simplex proximoAlgoritmo(){
+    Simplex proximoAlgoritmo(){
         SimplexLinha [] novasLinhas = new SimplexLinha[matriz.linhas.length];
 
         SimplexLinha linhaPivo = matriz.out();
