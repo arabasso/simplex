@@ -2,8 +2,8 @@
 Simplex implementation
 
 ### Para compilar:
-`#> gradle build`
+`#$> gradle build`
 
 ou
 
-`#> mvn assembly:single`
+`#$> mvn assembly:single`
