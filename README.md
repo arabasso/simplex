@@ -1,5 +1,5 @@
 # Simplex
-Implementação do algoritmo de Pesquisa Operacional Simplex em Java, com aplicação desktop utilizando fórmulas
+Implementação do algoritmo de Pesquisa Operacional Simplex em Java
 
 ### Para compilar:
 `#$> gradle build`
