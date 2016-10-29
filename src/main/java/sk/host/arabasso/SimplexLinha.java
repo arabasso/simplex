@@ -112,6 +112,26 @@ public final class SimplexLinha {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SimplexLinha that = (SimplexLinha) o;
+
+        if (indice != that.indice) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(colunas, that.colunas);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = indice;
+        result = 31 * result + Arrays.hashCode(colunas);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "[" + indice + "] = " + Arrays.toString(colunas);
     }

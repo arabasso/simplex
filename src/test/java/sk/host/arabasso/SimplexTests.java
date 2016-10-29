@@ -115,6 +115,11 @@ public class SimplexTests {
     }
 
     @Test
+    public void igualdade(){
+        assertThat(new Simplex(matriz), is(equalTo(new Simplex(matriz))));
+    }
+
+    @Test
     public void simplexSolucaoInicialNaoDeveRetornarNulo(){
         assertThat(solucaoInicial, is(not(nullValue())));
     }

@@ -204,4 +204,9 @@ public class SimplexLinhaTests {
 
         assertThat(linha.todosValoresSaoPositivos(), is(false));
     }
+
+    @Test
+    public void igualdade(){
+        assertThat(new SimplexLinha(colunas, 0), is(equalTo(new SimplexLinha(colunas, 0))));
+    }
 }

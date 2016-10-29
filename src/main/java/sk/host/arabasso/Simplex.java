@@ -1,10 +1,13 @@
 package sk.host.arabasso;
 
+import javax.swing.*;
+import javax.swing.plaf.FontUIResource;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
@@ -13,15 +16,27 @@ import java.util.stream.Stream;
  *
  */
 public class Simplex {
-    private String [] variaveis;
-    private final SimplexMatriz matriz;
+    public final String [] variaveis;
+    public final SimplexMatriz matriz;
 
     public Simplex(double[][] matriz) {
         this.matriz = new SimplexMatriz(matriz);
+        this.variaveis = new String[this.matriz.totalColunas()];
+    }
+
+    public Simplex(double[][] matriz, String [] variaveis) {
+        this.matriz = new SimplexMatriz(matriz);
+        this.variaveis = Arrays.copyOf(variaveis, variaveis.length);
     }
 
     public Simplex(SimplexLinha[] linhas) {
         this.matriz = new SimplexMatriz(linhas);
+        this.variaveis = new String[this.matriz.totalColunas()];
+    }
+
+    public Simplex(SimplexLinha[] linhas, String [] variaveis) {
+        this.matriz = new SimplexMatriz(linhas);
+        this.variaveis = Arrays.copyOf(variaveis, variaveis.length);
     }
 
     public Simplex(String arg) throws IOException {
@@ -82,14 +97,60 @@ public class Simplex {
             novasLinhas[i] = novaLinha(colunaPivo[i], novaLinhaPivo, matriz.linhas[i]);
         }
 
-        Simplex s = new Simplex(novasLinhas);
-
-        s.variaveis = this.variaveis;
+        Simplex s = new Simplex(novasLinhas, this.variaveis);
 
         return s;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Simplex simplex = (Simplex) o;
+
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        if (!Arrays.equals(variaveis, simplex.variaveis)) return false;
+        return matriz.equals(simplex.matriz);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Arrays.hashCode(variaveis);
+        result = 31 * result + matriz.hashCode();
+        return result;
+    }
+
+    private static void aumentarFonte(float escala){
+        UIDefaults uidef = UIManager.getLookAndFeelDefaults();
+        for (Map.Entry<Object,Object> e : uidef.entrySet()) {
+            Object val = e.getValue();
+            if (val != null && val instanceof FontUIResource) {
+                FontUIResource fui = (FontUIResource)val;
+                uidef.put(e.getKey(), fui.deriveFont(fui.getSize2D() * escala));
+            }
+        }
+    }
+
     public static void main(String [] args){
+        if (args.length < 1){
+
+
+            try {
+                UIManager.setLookAndFeel(new NimbusLookAndFeel());
+            } catch (Exception e) {
+            }
+
+            aumentarFonte(2.0f);
+
+            SimplexJanela janela = new SimplexJanela("Simplex");
+
+            janela.setVisible(true);
+
+            return;
+        }
+
         if (args.length != 1){
             System.out.println("uso: java -jar simplex.jar arquivo");
 

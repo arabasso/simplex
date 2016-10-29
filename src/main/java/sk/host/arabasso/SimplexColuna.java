@@ -19,7 +19,7 @@ public final class SimplexColuna {
 
     @Override
     public String toString() {
-        return "[" + indice + "] = " + NumberFormat.getCurrencyInstance().format(valor);
+        return "[" + indice + "] = " + NumberFormat.getNumberInstance().format(valor);
     }
 
     SimplexColuna somar(SimplexColuna c2) {
@@ -50,7 +50,29 @@ public final class SimplexColuna {
         return valor >= 0.0;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SimplexColuna that = (SimplexColuna) o;
+
+        if (indice != that.indice) return false;
+        return Double.compare(that.valor, valor) < EPSILON;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = indice;
+        temp = Double.doubleToLongBits(valor);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
     String toString(String[] variaveis) {
-        return variaveis[indice] + " = " + NumberFormat.getCurrencyInstance().format(valor);
+        return variaveis[indice] + " = " + NumberFormat.getNumberInstance().format(valor);
     }
 }

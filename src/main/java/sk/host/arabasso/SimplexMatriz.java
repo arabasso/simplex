@@ -116,4 +116,21 @@ public class SimplexMatriz {
 
         return new SimplexColuna(valor, totalColunas() - 1);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SimplexMatriz that = (SimplexMatriz) o;
+
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(linhas, that.linhas);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(linhas);
+    }
 }

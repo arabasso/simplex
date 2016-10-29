@@ -135,4 +135,9 @@ public class SimplexMatrizTests {
 
         assertThat(c.valor, is(closeTo(0.0, SimplexColuna.EPSILON)));
     }
+
+    @Test
+    public void igualdade(){
+        assertThat(new SimplexMatriz(matriz), is(equalTo(new SimplexMatriz(matriz))));
+    }
 }

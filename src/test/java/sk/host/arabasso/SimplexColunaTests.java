@@ -117,7 +117,7 @@ public class SimplexColunaTests {
     public void deveImprimirColunaValor(){
         SimplexColuna c = new SimplexColuna(100.0, 2);
 
-        assertThat(c.toString(), is(equalTo("[2] = R$ 100,00")));
+        assertThat(c.toString(), is(equalTo("[2] = 100")));
     }
 
     @Test
@@ -128,7 +128,7 @@ public class SimplexColunaTests {
 
         SimplexColuna c = new SimplexColuna(100.0, 2);
 
-        assertThat(c.toString(variaveis), is(equalTo("X3 = R$ 100,00")));
+        assertThat(c.toString(variaveis), is(equalTo("X3 = 100")));
     }
 
     @Test
@@ -143,5 +143,10 @@ public class SimplexColunaTests {
         SimplexColuna c = new SimplexColuna(-100.0, 2);
 
         assertThat(c.valorEhPositivo(), is(false));
+    }
+
+    @Test
+    public void igualdade(){
+        assertThat(new SimplexColuna(1.0, 0), is(equalTo(new SimplexColuna(1.0, 0))));
     }
 }

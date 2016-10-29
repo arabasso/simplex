@@ -9,11 +9,17 @@ description = 'Simplex implementation'
 
 mainClassName = 'sk.host.arabasso.Simplex'
 
+compileJava.options.encoding = 'UTF-8'
+
 repositories {
     mavenCentral()
+    maven {
+        url "http://repository.ops4j.org/maven2/"
+    }
 }
 
 dependencies {
+	compile group: 'com.intellij', name: 'forms_rt', version: '7757'
 	testCompile group: 'org.hamcrest', name: 'hamcrest-library', version: '1.3'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
@@ -23,6 +29,7 @@ jar {
         attributes 'Main-Class': mainClassName
     }
 	baseName = 'simplex'
+	from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
 }
 
 sourceCompatibility = 1.8
