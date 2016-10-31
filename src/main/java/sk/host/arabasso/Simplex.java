@@ -1,5 +1,8 @@
 package sk.host.arabasso;
 
+import sk.host.arabasso.printer.SimplexPrinter;
+import sk.host.arabasso.printer.SimplexTextPrinter;
+
 import javax.swing.*;
 import javax.swing.plaf.FontUIResource;
 import javax.swing.plaf.nimbus.NimbusLookAndFeel;
@@ -168,7 +171,7 @@ public class Simplex {
                 solucao = simplex.solucao();
             }
 
-            solucao.imprimir(simplex.variaveis);
+            System.out.println(new SimplexTextPrinter().solucao(simplex, solucao));
         } catch (IOException e) {
             System.out.println("Aquivo inexistente: " + e.getMessage());
         }

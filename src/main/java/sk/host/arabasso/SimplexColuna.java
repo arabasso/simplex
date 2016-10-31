@@ -9,8 +9,8 @@ import java.text.NumberFormat;
 public final class SimplexColuna {
     final static double EPSILON = 0.00001;
 
-    final int indice;
-    final double valor;
+    public final int indice;
+    public final double valor;
 
     public SimplexColuna(double valor, int indice) {
         this.indice = indice;
@@ -72,7 +72,11 @@ public final class SimplexColuna {
         return result;
     }
 
-    String toString(String[] variaveis) {
-        return variaveis[indice] + " = " + NumberFormat.getNumberInstance().format(valor);
+    public String toString(String[] variaveis) {
+        return variaveis[indice] + " = " + toSimpleString();
+    }
+
+    public String toSimpleString() {
+        return NumberFormat.getNumberInstance().format(valor);
     }
 }

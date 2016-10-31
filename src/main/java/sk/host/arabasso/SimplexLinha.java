@@ -9,8 +9,8 @@ import java.util.Scanner;
  *
  */
 public final class SimplexLinha {
-    final int indice;
-    final SimplexColuna [] colunas;
+    public final int indice;
+    public final SimplexColuna [] colunas;
 
     public SimplexLinha(SimplexColuna[] colunas, int indice) {
         this.colunas = Arrays.copyOf(colunas, colunas.length);

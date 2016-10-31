@@ -11,7 +11,7 @@
     </properties>
     <border type="none"/>
     <children>
-      <component id="2dc50" class="javax.swing.JLabel" binding="foLabel">
+      <component id="2dc50" class="javax.swing.JLabel">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -29,7 +29,7 @@
           <text value="4X1 + 3X2 + 2X3 + X4"/>
         </properties>
       </component>
-      <component id="7aec0" class="javax.swing.JLabel" binding="restricoesLabel">
+      <component id="7aec0" class="javax.swing.JLabel">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
@@ -37,7 +37,7 @@
           <text value="Restrições"/>
         </properties>
       </component>
-      <tabbedpane id="8c854" binding="solucaoTabbedPane">
+      <tabbedpane id="8c854">
         <constraints>
           <grid row="5" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
             <preferred-size width="200" height="400"/>
@@ -54,7 +54,7 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="e1786" class="javax.swing.JLabel" binding="variaveisBasicasLabel">
+              <component id="e1786" class="javax.swing.JLabel">
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -62,7 +62,7 @@
                   <text value="Variáveis básicas"/>
                 </properties>
               </component>
-              <component id="e678b" class="javax.swing.JLabel" binding="variaveisNaoBasicasLabel">
+              <component id="e678b" class="javax.swing.JLabel">
                 <constraints>
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -70,7 +70,7 @@
                   <text value="Variáveis não básicas"/>
                 </properties>
               </component>
-              <component id="ea37b" class="javax.swing.JLabel" binding="valorZLabel">
+              <component id="ea37b" class="javax.swing.JLabel">
                 <constraints>
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -125,7 +125,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="560a2" class="javax.swing.JTextArea" binding="passoTextArea">
+                  <component id="4666e" class="javax.swing.JEditorPane" binding="passoEditorPane">
                     <constraints/>
                     <properties>
                       <editable value="false"/>

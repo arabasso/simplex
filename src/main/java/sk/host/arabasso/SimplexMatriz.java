@@ -8,7 +8,7 @@ import java.util.Arrays;
  *
  */
 public class SimplexMatriz {
-    SimplexLinha[] linhas;
+    public SimplexLinha[] linhas;
 
     public SimplexMatriz(double[][] matriz) {
         this.linhas = new SimplexLinha[matriz.length];
